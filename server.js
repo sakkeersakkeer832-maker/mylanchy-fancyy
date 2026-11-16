@@ -1,6 +1,7 @@
 const http=require('http'),fs=require('fs'),path=require('path'),crypto=require('crypto');
-const PORT=process.env.PORT||3000,DIR=process.env.DATA_DIR||path.join(__dirname,'data'),FILE=path.join(DIR,'db.json');
-fs.mkdirSync(DIR,{recursive:true});
+const PORT=process.env.PORT||3000;let DIR=process.env.DATA_DIR||path.join(__dirname,'data');
+try{fs.mkdirSync(DIR,{recursive:true})}catch(e){console.log('WARNING: cannot use '+DIR+' ('+e.code+'). Using ./data instead - data will NOT survive redeploys unless a persistent disk is mounted.');DIR=path.join(__dirname,'data');fs.mkdirSync(DIR,{recursive:true})}
+const FILE=path.join(DIR,'db.json');
 let db={users:{},reqs:[],notes:[],redeems:[],gifts:[],sessions:{},cfg:{on:true,rate:10}};
 try{db=Object.assign(db,JSON.parse(fs.readFileSync(FILE,'utf8')))}catch(e){}
 const save=()=>{const t=FILE+'.tmp';fs.writeFileSync(t,JSON.stringify(db));fs.renameSync(t,FILE)};
