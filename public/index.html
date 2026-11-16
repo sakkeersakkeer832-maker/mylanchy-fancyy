@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mylanchy Fancy – Rewards</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#fff7fc;--card:#fff;--ink:#2d1b4e;--mut:#8a7aa5;--p:#7c3aed;--pk:#ec4899;--line:#f0e1fa;--g:linear-gradient(135deg,#7c3aed,#ec4899);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root{--bg:#1a1030;--card:#261742;--ink:#f6ecff;--mut:#b9a6d6;--line:#3a2860}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font-family:Poppins,system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;background-image:radial-gradient(circle at 10% 0,#e9d5ff55,transparent 40%),radial-gradient(circle at 100% 20%,#fbcfe855,transparent 40%)}
+.wrap{max-width:760px;margin:auto;padding:14px 14px 90px}h1,h2,h3{margin:0}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0 14px}
+.logo{font-weight:700;font-size:1.25rem;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 8px 24px #7c3aed14}
+.hero{background:var(--g);color:#fff;border:0}.hero .mut{color:#ffffffd0}
+.mut{color:var(--mut);font-size:.85rem}
+input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;font:inherit;background:var(--bg);color:var(--ink);margin:6px 0}
+input:focus{outline:2px solid var(--p);border-color:transparent}
+button{font:inherit;cursor:pointer;border:0;border-radius:14px;padding:11px 16px;min-height:44px;background:var(--g);color:#fff;font-weight:600}
+button.s{background:var(--line);color:var(--ink)}button.d{background:#fee2e2;color:#b91c1c}button.sm{padding:6px 12px;min-height:34px;font-size:.85rem}button:disabled{opacity:.5}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.bar{display:flex;height:14px;border-radius:99px;background:#ffffff40;overflow:hidden;margin:10px 0}.bar i{display:block;height:100%;background:#fff;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.bar i.pend{background:repeating-linear-gradient(45deg,#ffffffaa,#ffffffaa 6px,#ffffff55 6px,#ffffff55 12px)}
+.bar.light{background:var(--line)}.bar.light i{background:var(--g)}
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-around;background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+.nav button{background:none;color:var(--mut);font-size:.72rem;padding:6px 4px;flex:1;min-height:48px}.nav button.on{color:var(--p)}
+.nav b{display:block;font-size:1.25rem;position:relative;width:max-content;margin:0 auto}.dot{position:absolute;top:-6px;right:-14px;background:var(--pk);color:#fff;border-radius:99px;font-size:.65rem;padding:1px 6px}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.75rem;font-weight:600}.pen{background:#fef3c7;color:#92400e}.ok{background:#dcfce7;color:#166534}.no{background:#fee2e2;color:#991b1b}
+.code{font-size:1.8rem;letter-spacing:.3rem;font-weight:700;text-align:center;background:#fff;color:var(--p);border-radius:16px;padding:8px;margin:8px 0}
+.item{border-top:1px dashed var(--line);padding:10px 0}.item:first-child{border:0}
+.auth{max-width:400px;margin:8vh auto}.auth h1{text-align:center;font-size:1.8rem}
+.tabs{display:flex;gap:6px;margin:10px 0}.tabs button{flex:1}
+.toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--g);color:#fff;padding:12px 18px;border-radius:99px;z-index:9;max-width:90%;box-shadow:0 8px 24px #0004}
+.sw{display:flex;align-items:center;gap:8px}.sw input{width:auto;margin:0}
+.pts{font-size:2.6rem;font-weight:700;line-height:1.1}
+.gift{border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:10px}
+.nitem{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:16px;margin-top:8px;cursor:pointer;border:1px solid var(--line)}.nitem.unr{background:#f5ebff;border-color:#e0c8fb}
+@media(prefers-color-scheme:dark){.nitem.unr{background:#33205a}}
+.ni{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:1.2rem;flex:none}.udot{width:10px;height:10px;border-radius:50%;background:var(--pk);flex:none;margin-top:6px}
+</style></head><body><div id="app"></div><div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),app=$('#app');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=t=>new Date(t).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+const ago=t=>{const s=(Date.now()-t)/1000;return s<60?'just now':s<3600?Math.floor(s/60)+' min ago':s<86400?Math.floor(s/3600)+' h ago':fmt(t)};
+let S={users:{},reqs:[],notes:[],redeems:[],gifts:[],cfg:{on:true,rate:10}},me=null,tab='home',at='in',tok=localStorage.getItem('mf_tok'),last='',ready=false,keep=false,lastN=null,nf='all',prevW={},prevN=0,gf={id:'',name:'',points:''},gsub='pickup',gfo=false;
+async function API(p,m='GET',b){const r=await fetch('/api/'+p,{method:m,headers:{'Content-Type':'application/json',...(tok?{Authorization:'Bearer '+tok}:{})},body:b?JSON.stringify(b):undefined});
+ const j=await r.json().catch(()=>({}));if(!r.ok){if(r.status===401&&tok&&p==='state')dropTok();throw new Error(j.error||'Something went wrong')}return j}
+function dropTok(){tok=null;me=null;last='';lastN=null;localStorage.removeItem('mf_tok')}
+async function pull(force){try{const j=await API('state'),s=JSON.stringify(j);if(!force&&s===last)return;last=s;S=j.state;me={role:j.role,id:j.id};ready=true;checkNotes();keep=!force;render();keep=false}
+ catch(e){ready=true;if(!tok)render()}}
+function act(p,m,b,ok){return API(p,m,b).then(()=>pull(true)).then(()=>ok&&toast(ok)).catch(e=>toast(e.message))}
+async function authDone(j){tok=j.token;localStorage.setItem('mf_tok',tok);lastN=null;await pull(true);tab=me&&me.role==='admin'?'req':'home';render()}
+function toast(m){const t=$('#toast');t.innerHTML='<div class="toast">'+esc(m)+'</div>';setTimeout(()=>t.innerHTML='',3500)}
+const myNotes=()=>S.notes.filter(x=>x.to===(me.role==='admin'?'admin':me.id)),unread=()=>myNotes().filter(x=>!x.read).length;
+function checkNotes(){if(!me)return;const n=myNotes().filter(x=>!x.read),ids=new Set(n.map(x=>x.id));
+ if(lastN){const f=n.filter(x=>!lastN.has(x.id));if(f.length){toast('🔔 '+f[0].text);navigator.vibrate&&navigator.vibrate(200);
+  if('Notification' in window&&Notification.permission==='granted'&&document.hidden)new Notification('Mylanchy Fancy',{body:f[0].text})}}lastN=ids}
+function logout(){dropTok();location.hash='';render()}
+// ---- auth
+function authView(admin){return `<div class="auth"><div class="card"><h1 class="logo">✨ Mylanchy Fancy</h1><p class="mut" style="text-align:center">${admin?'Admin login':'Shop, earn points, win gifts 💜'}</p>
+ ${admin?'':`<div class="tabs"><button class="${at==='in'?'':'s'}" onclick="at='in';render()">Login</button><button class="${at==='up'?'':'s'}" onclick="at='up';render()">Register</button></div>`}
+ ${admin?'<input id="a_u" placeholder="Admin username" autocomplete="username">':at==='up'?'<input id="a_n" placeholder="Your name">':''}
+ ${admin?'':'<input id="a_p" inputmode="tel" placeholder="Phone number">'}
+ <input id="a_w" type="password" placeholder="Password" autocomplete="current-password">
+ <button style="width:100%;margin-top:8px" onclick="${admin?'adminLogin()':at==='up'?'reg()':'login()'}">${admin?'Login as admin':at==='up'?'Create account':'Login'}</button>
+ <p class="mut" style="text-align:center;margin-top:14px"><a href="#${admin?'':'admin'}" style="color:var(--p)">${admin?'← Customer login':'Admin login'}</a></p></div></div>`}
+function reg(){const n=$('#a_n').value.trim(),p=$('#a_p').value.replace(/\D/g,''),w=$('#a_w').value;
+ if(!n||p.length<8||w.length<4)return toast('Name, valid phone & 4+ char password needed');API('register','POST',{name:n,phone:p,password:w}).then(authDone).catch(e=>toast(e.message))}
+function login(){API('login','POST',{phone:$('#a_p').value,password:$('#a_w').value}).then(authDone).catch(e=>toast(e.message))}
+function adminLogin(){API('admin/login','POST',{username:$('#a_u').value,password:$('#a_w').value}).then(authDone).catch(e=>toast(e.message))}
+app.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='a_w')$('.auth .card>button').click()});
+// ---- shared pieces
+const wd=(id,v)=>`id="${id}" data-w="${Math.max(0,Math.min(100,v))}" style="width:${prevW[id]||0}%"`;
+const NI={ok:['✅','#dcfce7'],gift:['🎁','#fce7f3'],goal:['🎟️','#ede9fe'],reward:['🏆','#fef3c7'],req:['🛍️','#e0f2fe'],warn:['❌','#fee2e2'],info:['🔔','#f3e8ff']};
+function notesView(){const all=myNotes(),n=nf==='unread'?all.filter(x=>!x.read):all;
+ const pb=!('Notification' in window)?'':Notification.permission==='granted'?'<p class="mut">📲 Pop-up alerts are on (while this page is open)</p>':Notification.permission==='denied'?'':'<button class="s sm" onclick="Notification.requestPermission().then(render)">Turn on pop-up alerts</button>';
+ return `<div class="card"><div class="row"><h3>🔔 Notifications</h3><div class="row" style="gap:6px"><button class="s sm" onclick="act('notes/read','POST',{})">Read all</button><button class="d sm" onclick="if(confirm('Clear all notifications?'))act('notes/clear','POST')">Clear</button></div></div>
+ <div class="tabs"><button class="sm ${nf==='all'?'':'s'}" onclick="nf='all';render()">All (${all.length})</button><button class="sm ${nf==='unread'?'':'s'}" onclick="nf='unread';render()">Unread (${unread()})</button></div>${pb}
+ ${n.map(x=>{const[i,c]=NI[x.type]||NI.info;return `<div class="nitem ${x.read?'':'unr'}" onclick="act('notes/read','POST',{id:'${x.id}'})"><div class="ni" style="background:${c}">${i}</div><div style="flex:1"><div ${x.read?'':'style="font-weight:600"'}>${esc(x.text)}</div><div class="mut">${ago(x.t)}</div></div>${x.read?'':'<i class="udot"></i>'}</div>`}).join('')||'<p class="mut">Nothing here</p>'}</div>`}
+function bd(k){return k==='note'?unread():k==='gifts'&&me.role==='admin'?S.redeems.filter(r=>r.st==='p').length:0}
+function shell(b,items){const n=unread();return `<div class="wrap"><div class="top"><span class="logo">✨ Mylanchy Fancy${me.role==='admin'?' · Admin':''}</span><button class="s sm" onclick="logout()">Logout</button></div>${b}</div>
+ <div class="nav">${items.map(([k,i,l])=>`<button class="${tab===k||(k==='cus'&&tab.startsWith('cd_'))?'on':''}" onclick="tab='${k}';render()"><b>${i}${bd(k)?`<span class="dot">${bd(k)}</span>`:''}</b>${l}</button>`).join('')}</div>`}
+const rst={p:['Waiting for pickup','pen'],d:['Collected','ok'],c:['Cancelled','no']};
+// ---- customer
+function userView(){const u=S.users[me.id];if(!u)return'';const c=S.cfg,mine=S.reqs.filter(r=>r.uid===u.id),pend=mine.filter(r=>r.st==='p').reduce((a,r)=>a+r.amt,0),pp=c.on?Math.floor(pend/c.rate):0;
+ const gifts=[...S.gifts].sort((a,b)=>a.points-b.points),next=gifts.find(g=>g.points>u.pts),myr=S.redeems.filter(r=>r.uid===u.id);let b='';
+ if(tab==='home')b=`<div class="card hero"><div class="mut">Hi ${esc(u.name)} 👋</div><div class="pts"><span id="amtn" data-v="${u.pts}">${prevN}</span> <span style="font-size:1rem;font-weight:500">points</span></div>
+  <div class="mut">${c.on?'₹'+c.rate+' spent = 1 point':'Points are paused by the shop right now'}</div>
+  ${c.on&&next?`<div class="bar"><i ${wd('bh',u.pts/next.points*100)}></i><i class="pend" ${wd('bp',pp/next.points*100)}></i></div><div class="mut">🎁 ${esc(next.name)} · ${next.points-u.pts} more points${pp?' · +'+pp+' pts waiting for approval':''}</div>`
+   :c.on&&gifts.length?`<div class="mut" style="margin-top:8px">🎉 You can redeem any gift! Open the Gifts tab.</div>`:''}</div>
+  ${myr.filter(r=>r.st==='p').map(r=>`<div class="card"><b>🎟️ ${esc(r.name)}</b><div class="code">${esc(r.code)}</div><div class="mut">Show this code at Mylanchy Fancy to collect your gift</div></div>`).join('')}
+  <div class="card"><h3>🛍️ I made a purchase</h3><p class="mut">Enter the amount; the shop will approve it and add your points.</p>
+  <input id="amt" type="number" min="1" inputmode="numeric" placeholder="Amount in ₹" oninput="pv()"><div class="mut" id="pv"></div><input id="nt" placeholder="What did you buy? (optional)">
+  <button style="width:100%" onclick="addReq()">Send for approval</button></div>
+  <div class="card"><h3>⏳ Waiting for approval</h3>${mine.filter(r=>r.st==='p').map(r=>`<div class="item row"><div><b>₹${r.amt}</b> <span class="tag pen">Pending</span>${c.on?` <span class="mut">+${Math.floor(r.amt/c.rate)} pts</span>`:''}<div class="mut">${esc(r.note)} · ${fmt(r.t)}</div></div><button class="d sm" onclick="delReq('${r.id}')">Delete</button></div>`).join('')||'<p class="mut">Nothing pending</p>'}</div>`;
+ else if(tab==='gifts')b=`<div class="card"><h3>🎁 Gift menu</h3><p class="mut">You have <b>${u.pts}</b> points. Pick a gift and redeem it.</p>
+  ${gifts.map(g=>{const ok=u.pts>=g.points&&c.on;return `<div class="gift"><div class="row"><b>${esc(g.name)}</b><span class="tag ok">${g.points} pts</span></div>
+   <div class="bar light"><i ${wd('bg_'+g.id,u.pts/g.points*100)}></i></div>
+   ${ok?`<button style="width:100%" onclick="redeem('${g.id}','${esc(g.name).replace(/'/g,'')}')">Redeem now</button>`:`<div class="mut">${c.on?'Need '+(g.points-u.pts)+' more points':'Paused'}</div>`}</div>`}).join('')||'<p class="mut">The shop will add gifts soon 💜</p>'}</div>`;
+ else if(tab==='hist')b=`<div class="card"><h3>📜 Purchases</h3>${mine.filter(r=>r.st==='a').map(r=>`<div class="item"><b>₹${r.amt}</b> <span class="tag ok">+${r.pts||0} pts</span>${r.gift?`<div>🎁 ${esc(r.gift)}</div>`:''}<div class="mut">${esc(r.note)} · ${fmt(r.at)}</div></div>`).join('')||'<p class="mut">No approved purchases yet</p>'}</div>
+  <div class="card"><h3>🎟️ Redeemed gifts</h3>${myr.map(r=>`<div class="item"><b>${esc(r.name)}</b> <span class="tag ${rst[r.st][1]}">${rst[r.st][0]}</span><div class="mut">${r.points} pts · code ${esc(r.code)} · ${fmt(r.t)}</div></div>`).join('')||'<p class="mut">None yet</p>'}</div>`;
+ else b=notesView();
+ return shell(b,[['home','🏠','Home'],['gifts','🎁','Gifts'],['hist','📜','History'],['note','🔔','Alerts']])}
+function pv(){const a=Math.round(+$('#amt').value),c=S.cfg;$('#pv').textContent=a>0&&c.on?'≈ '+Math.floor(a/c.rate)+' points after approval':''}
+function addReq(){const a=Math.round(+$('#amt').value);if(!(a>0))return toast('Enter a valid amount');act('req','POST',{amt:a,note:$('#nt').value.trim()},'Sent for approval ✅')}
+function delReq(id){act('req/'+id,'DELETE')}
+function redeem(id,n){if(confirm('Redeem '+n+'?'))API('redeem','POST',{gid:id}).then(()=>{tab='home';return pull(true)}).then(()=>toast('Redeemed! Show your code at the shop 🎟️')).catch(e=>toast(e.message))}
+// ---- admin
+function rrow(r){return `<div class="item"><b>${esc(S.users[r.uid]?.name)}</b> · ${esc(r.name)} <span class="tag pen">${esc(r.code)}</span><div class="mut">${r.points} pts · ${fmt(r.t)}</div>
+ <div class="row" style="margin-top:6px"><button class="sm" onclick="act('admin/rdeliver','POST',{id:'${r.id}'},'Marked delivered ✔')">Mark delivered</button><button class="d sm" onclick="if(confirm('Cancel and refund points?'))act('admin/rcancel','POST',{id:'${r.id}'},'Refunded')">Cancel & refund</button></div></div>`}
+function adminView(){const c=S.cfg,us=Object.values(S.users);let b='';
+ if(tab==='req')b=`<div class="card"><h3>✅ Purchase requests</h3>${S.reqs.filter(r=>r.st==='p').map(r=>`<div class="item"><b>${esc(S.users[r.uid]?.name)}</b> · ₹${r.amt} <span class="tag ok">+${c.on?Math.floor(r.amt/c.rate):0} pts</span><div class="mut">${esc(r.note)} · ${fmt(r.t)}</div>
+  <input id="g_${r.id}" placeholder="Extra gift for customer (optional)"><div class="row"><button class="sm" onclick="act('admin/approve','POST',{id:'${r.id}',gift:$('#g_${r.id}').value.trim()})">Approve</button><button class="d sm" onclick="act('admin/reject','POST',{id:'${r.id}'})">Reject</button></div></div>`).join('')||'<p class="mut">No pending requests 🎉</p>'}</div>`;
+ else if(tab==='cus')b=`<div class="card"><h3>👥 Customers (${us.length})</h3>${us.map(u=>`<div class="item row"><div><b>${esc(u.name)}</b><div class="mut">📞 ${esc(u.phone)} · ${u.pts} pts · Spent ₹${u.total}</div></div><button class="s sm" onclick="tab='cd_${u.id}';render()">Details</button></div>`).join('')||'<p class="mut">No customers yet</p>'}</div>`;
+ else if(tab.startsWith('cd_')){const id=tab.slice(3),u=S.users[id]||{};b=`<button class="s sm" onclick="tab='cus';render()">← Back</button><div class="card"><h3>${esc(u.name)}</h3><p class="mut">📞 ${esc(u.phone)} · Joined ${fmt(u.joined)}<br>Spent ₹${u.total} · Earned ${u.earned} pts · <b>Balance ${u.pts} pts</b></p>
+  <input id="adj" type="number" inputmode="numeric" placeholder="Points to add / remove"><div class="row"><button class="sm" onclick="adj('${id}',1)">+ Add</button><button class="d sm" onclick="adj('${id}',-1)">− Remove</button></div></div>
+  <div class="card"><h3>Purchases</h3>${S.reqs.filter(r=>r.uid===id).map(r=>`<div class="item"><b>₹${r.amt}</b> <span class="tag ${r.st==='a'?'ok':'pen'}">${r.st==='a'?'Approved +'+(r.pts||0)+' pts':'Pending'}</span><div class="mut">${esc(r.note)} ${r.gift?'· 🎁 '+esc(r.gift):''} · ${fmt(r.t)}</div></div>`).join('')||'<p class="mut">None</p>'}</div>
+  <div class="card"><h3>Redeemed gifts</h3>${S.redeems.filter(r=>r.uid===id).map(r=>`<div class="item"><b>${esc(r.name)}</b> <span class="tag ${rst[r.st][1]}">${rst[r.st][0]}</span><div class="mut">${r.points} pts · ${fmt(r.t)}</div></div>`).join('')||'<p class="mut">None</p>'}</div>`}
+ else if(tab==='gifts'){const pend=S.redeems.filter(r=>r.st==='p');
+  const seg=`<div class="tabs"><button class="${gsub==='pickup'?'':'s'}" onclick="gsub='pickup';render()">🎟️ Pickup${pend.length?' ('+pend.length+')':''}</button><button class="${gsub==='menu'?'':'s'}" onclick="gsub='menu';render()">🎁 Gift menu</button></div>`;
+  if(gsub==='pickup')b=seg+`<div class="card"><h3>🔑 Check customer's code</h3><p class="mut">Customer shows a code at the shop? Type it here.</p><input id="vc" placeholder="Enter code" style="text-transform:uppercase"><button style="width:100%" onclick="verify()">Check code</button><div id="vr"></div></div>
+   <div class="card"><h3>⏳ Waiting for pickup (${pend.length})</h3>${pend.map(rrow).join('')||'<p class="mut">Nobody is waiting 🎉</p>'}</div>`;
+  else b=seg+`<div class="card"><div class="row"><h3>🎁 Gift menu</h3><button class="sm" onclick="gfo=true;gf={id:'',name:'',points:''};render()">+ Add gift</button></div>
+   ${S.gifts.map(g=>`<div class="item"><div><b>${esc(g.name)}</b> <span class="tag ok">${g.points} pts</span> ${g.on?'':'<span class="tag pen">Hidden</span>'}</div>
+    <div class="row" style="gap:6px;margin-top:6px;justify-content:flex-start"><button class="s sm" onclick="gf={id:'${g.id}',name:'${esc(g.name).replace(/'/g,'')}',points:${g.points}};render()">Edit</button><button class="s sm" onclick="act('admin/gift','POST',{id:'${g.id}',name:'${esc(g.name).replace(/'/g,'')}',points:${g.points},on:${!g.on}})">${g.on?'Hide':'Show'}</button><button class="d sm" onclick="if(confirm('Delete this gift?'))act('admin/gift/delete','POST',{id:'${g.id}'})">Delete</button></div></div>`).join('')||'<p class="mut">No gifts yet. Tap “+ Add gift”.</p>'}</div>
+   ${gf.id||gfo?`<div class="card"><h3>${gf.id?'✏️ Edit gift':'➕ New gift'}</h3><input id="gn" placeholder="Gift name (e.g. Hair clip)" value="${esc(gf.name)}"><input id="gp" type="number" inputmode="numeric" placeholder="Points needed" value="${esc(gf.points)}">
+   <div class="row"><button onclick="saveGift()">${gf.id?'Save changes':'Add gift'}</button><button class="s" onclick="gfo=false;gf={id:'',name:'',points:''};render()">Cancel</button></div></div>`:''}`}
+ else if(tab==='set')b=`<div class="card"><h3>⚙️ Points settings</h3><div class="row"><span>Points system</span><label class="sw"><input type="checkbox" ${c.on?'checked':''} onchange="act('admin/cfg','POST',{on:this.checked})"> ${c.on?'On':'Off'}</label></div>
+  <p class="mut">Customer spends this much (₹) to get 1 point</p><input id="rate" type="number" value="${c.rate}"><button onclick="act('admin/cfg','POST',{rate:$('#rate').value},'Saved')">Save</button></div>
+  <div class="card"><h3>🔐 Change admin password</h3><input id="npw" type="password" placeholder="New password (6+ characters)"><button class="s" onclick="act('admin/pw','POST',{password:$('#npw').value},'Password changed')">Update</button></div>`;
+ else b=notesView();
+ return shell(b,[['req','✅','Requests'],['cus','👥','Customers'],['gifts','🎁','Gifts'],['set','⚙️','Settings'],['note','🔔','Alerts']])}
+function verify(){const v=$('#vc').value.trim().toUpperCase(),r=S.redeems.find(x=>x.code===v&&x.st==='p');$('#vr').innerHTML=r?'<div style="margin-top:8px">✅ Valid code'+rrow(r)+'</div>':'<div class="item">❌ Invalid or already used code</div>'}
+function saveGift(){act('admin/gift','POST',{id:gf.id,name:$('#gn').value,points:$('#gp').value,on:true},'Saved ✅').then(()=>{gf={id:'',name:'',points:''};gfo=false;render()})}
+function adj(id,s){const d=Math.round(+$('#adj').value);if(!d)return toast('Enter points');act('admin/points','POST',{uid:id,delta:s*Math.abs(d)},'Updated')}
+// ---- render + animation
+function anim(){document.querySelectorAll('[data-w]').forEach(e=>{const w=+e.dataset.w;requestAnimationFrame(()=>requestAnimationFrame(()=>e.style.width=w+'%'));prevW[e.id]=w});
+ const n=$('#amtn');if(n){const v=+n.dataset.v,from=prevN,t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/1000);n.textContent=Math.round(from+(v-from)*k);if(k<1)requestAnimationFrame(f)})(t0);prevN=v}}
+function render(){if(!ready){app.innerHTML='<p class="mut" style="text-align:center;margin-top:30vh">Loading ✨</p>';return}
+ let snap=null;if(keep){const f=document.activeElement;snap={v:[...document.querySelectorAll('#app input[id]')].filter(e=>e.type!=='checkbox').map(e=>[e.id,e.value]),f:f&&f.id,s:f&&f.selectionStart}}
+ app.innerHTML=!me?authView(location.hash==='#admin'):me.role==='admin'?adminView():userView();anim();
+ if(snap){snap.v.forEach(([id,v])=>{const e=document.getElementById(id);if(e&&v&&!e.value)e.value=v});if(snap.f){const e=document.getElementById(snap.f);if(e){e.focus();try{e.setSelectionRange(snap.s,snap.s)}catch(x){}}}}}
+addEventListener('hashchange',render);
+tok?pull(true):(ready=true,render());setInterval(()=>{if(tok)pull()},5000);
+</script></body></html>

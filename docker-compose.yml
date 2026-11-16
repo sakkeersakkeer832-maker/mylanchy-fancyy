@@ -1,0 +1,8 @@
+services:
+  mylanchy:
+    build: .
+    restart: unless-stopped
+    ports: ["3000:3000"]
+    environment:
+      - ADMIN_PASSWORD=change-me-now
+    volumes: ["./data:/data"]
